@@ -43,7 +43,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 	}
 
-	func openTapped() {
+	@objc func openTapped() {
 		let ac = UIAlertController(title: "Open page…", message: nil, preferredStyle: .actionSheet)
 
 		for website in websites {
@@ -51,6 +51,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
 		}
 
 		ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
 		present(ac, animated: true)
 	}
 
@@ -66,9 +67,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 		let url = navigationAction.request.url
 
-		if let host = url!.host {
+		if let host = url?.host {
 			for website in websites {
-				if host.range(of: website) != nil {
+				if host.contains(website) {
 					decisionHandler(.allow)
 					return
 				}

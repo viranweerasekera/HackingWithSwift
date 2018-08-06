@@ -25,7 +25,7 @@ class ViewController: UITableViewController {
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 	}
 
-	func addWhistle() {
+	@objc func addWhistle() {
 		let vc = RecordWhistleViewController()
 		navigationController?.pushViewController(vc, animated: true)
 	}
@@ -80,12 +80,12 @@ class ViewController: UITableViewController {
 	}
 
 	func makeAttributedString(title: String, subtitle: String) -> NSAttributedString {
-		let titleAttributes = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline), NSForegroundColorAttributeName: UIColor.purple]
-		let subtitleAttributes = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)]
+		let titleAttributes = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline), NSAttributedStringKey.foregroundColor: UIColor.purple]
+		let subtitleAttributes = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)]
 
 		let titleString = NSMutableAttributedString(string: "\(title)", attributes: titleAttributes)
 
-		if subtitle.characters.count > 0 {
+		if subtitle.count > 0 {
 			let subtitleString = NSAttributedString(string: "\n\(subtitle)", attributes: subtitleAttributes)
 			titleString.append(subtitleString)
 		}
@@ -119,7 +119,7 @@ class ViewController: UITableViewController {
 		navigationController?.pushViewController(vc, animated: true)
 	}
 
-	func selectGenre() {
+	@objc func selectGenre() {
 		let vc = MyGenresViewController()
 		navigationController?.pushViewController(vc, animated: true)
 	}
